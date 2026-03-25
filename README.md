@@ -1,6 +1,5 @@
 ### Project Reflex ###
 
-This project is an extension to a little mini-project I created a few days ago called <a href = '#'>"API Sentinel"<a>. 
 <br>
 Project Reflex is an automated self-healing application that allows the system to recover from external API schema changes by dynamically rewriting its own integration code. <br>
 Systems can intercept HTTP errors prior to failure as well as see autonomous code correction executed via Abstract Syntax Trees (AST).
