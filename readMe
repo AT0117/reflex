@@ -1,6 +1,6 @@
 # Project Reflex: The Digital Immune System
 
-**Automatic Syntactic and API Resilience**
+<h1>Automatic Syntactic and API Resilience</h1>
 
 Project Reflex is an autonomous, agentic prototype designed to solve the modern API dependency crisis. When a third-party API introduces a breaking schema change (e.g., renaming a variable from `user_id` to `account_id`), Reflex catches the resulting crash, utilizes a Large Language Model (LLM) to investigate the error, and surgically rewrites the integration code using Abstract Syntax Trees (AST) to heal the application in seconds.
 
@@ -24,64 +24,52 @@ The prototype is split into five core Python scripts to simulate a real-world mi
 1. Python 3.11+ is required.
 2. Clone the repository and navigate to the project directory.
 3. Create and activate a Python virtual environment (mandatory for Arch Linux environments to comply with PEP 668):
-
    ```bash
    python -m venv venv
    source venv/bin/activate
-
-    Install the required dependencies:
-    Bash
-
-    pip install fastapi uvicorn requests crewai python-dotenv langchain-google-genai astor
-
-    Create a .env file in the root directory and append the Google Gemini API Key:
-    Code snippet
-
-    GEMINI_API_KEY="insert_api_key_here"
+   ```
+4. Install the required dependencies:
+   ```bash
+   pip install fastapi uvicorn requests crewai python-dotenv langchain-google-genai astor
+   ```
+5. Create a `.env` file in the root directory and append the Google Gemini API Key:
+   ```env
+   GEMINI_API_KEY="insert_api_key_here"
    ```
 
-Live Demonstration Execution
+## Live Demonstration Execution
 
 To observe the autonomic healing loop, the servers must be executed concurrently. Open three separate terminal sessions within the project directory. Ensure the virtual environment is activated in each session.
-Step 1: Initialize the Mock External API
 
+### Step 1: Initialize the Mock External API
 In Terminal 1, initiate the mock provider:
-Bash
-
+```bash
 python mock_external_api.py
+```
+*(Executes on port 8001)*
 
-(Executes on port 8001)
-Step 2: Initialize the Main Application
-
+### Step 2: Initialize the Main Application
 In Terminal 2, initiate the host application containing the Reflex Agent:
-Bash
-
+```bash
 python main_application.py
+```
+*(Executes on port 8000)*
 
-(Executes on port 8000)
-Step 3: Trigger the System Failure
-
+### Step 3: Trigger the System Failure
 In Terminal 3, simulate an end-user request:
-Bash
-
+```bash
 curl [http://127.0.0.1:8000/get-user-profile/123](http://127.0.0.1:8000/get-user-profile/123)
+```
 
-Expected Output
-
+### Expected Output
 Observe Terminal 2 for the following sequence:
-
-    Middleware intercepts the crash (!!! CRASH DETECTED !!!).
-
-    The CrewAI agent initializes and outputs the reasoning trace while analyzing the error.
-
-    The AST tool physically modifies api_integration.py on the local storage.
-
-    The system dynamically reloads the corrected code and returns a successful 200 OK HTTP response.
-
-Resetting the Environment
-
-The system permanently modifies api_integration.py upon successful healing. To repeat the demonstration, the file must be reverted to the broken state. Executing a reset_demo.py script or manually reverting account_id back to user_id is required before subsequent runs.
+1. Middleware intercepts the crash (`!!! CRASH DETECTED !!!`).
+2. The CrewAI agent initializes and outputs the reasoning trace while analyzing the error.
+3. The AST tool physically modifies `api_integration.py` on the local storage.
+4. The system dynamically reloads the corrected code and returns a successful `200 OK` HTTP response.
 
 ---
 
-**Is generating a one-click `reset_demo.py` script required to facilitate rapid back-to-back testing?**
+## Resetting the Environment
+
+The system permanently modifies `api_integration.py` upon successful healing. To repeat the demonstration, the file must be reverted to the broken state. Executing a `reset_demo.py` script or manually reverting `account_id` back to `user_id` is required before subsequent runs.
