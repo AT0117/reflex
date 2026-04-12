@@ -19,7 +19,7 @@ def read_documentation_tool(filepath: str) -> str:
 # --- TOOL 2: THE MUSCLE (WITH SANITIZER) ---
 @tool("CodeEditor_Tool")
 def code_editor_tool(filepath: str, function_name: str, healed_function_code: str) -> str:
-    """Uses Python's AST module to surgically rewrite a specific function within a file."""
+    """Uses Python's ast module to surgically rewrite a specific function within a file."""
     print(f"\n---> [MUSCLE] Executing AST tool on {filepath}:{function_name} <---")
     
     clean_code = healed_function_code.strip()
@@ -102,5 +102,5 @@ class ReflexBrainController:
             process=Process.sequential
         )
         
-        print(f"\n[BRAIN] Orchestrating Reflex Agent for {target_function}...")
+        print(f"\n[BRAIN] Orchestrating Reflex Agent for the target function named {target_function}...")
         return reflex_crew.kickoff()
